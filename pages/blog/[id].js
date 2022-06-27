@@ -517,7 +517,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
 	)
 }
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 	const { id } = context.params;
 	const res = await fetch(`http://headless.local/wp-json/wp/v2/posts/?_embed&slug=${id}`);
 	const data = await res.json();

@@ -641,7 +641,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 	)
 }
 
-export async function getServerSideProps() {
+export async function getStaticProps() {
 	const topnews = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
 	const data = await topnews.json();
 	const reviews = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
