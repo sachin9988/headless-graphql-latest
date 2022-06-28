@@ -278,7 +278,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
                     setOpenTab(3);
                   }}
                   data-toggle="tab"
-                  href="#link2"
+                  href="#link2" 
                   role="tablist"
 								>Stories</li>
 			  </ul>
