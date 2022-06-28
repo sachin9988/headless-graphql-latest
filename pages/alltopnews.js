@@ -409,7 +409,7 @@ const alltopnews = ({data}) => {
   
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const alltopnews = await fetch('http://headless.local/wp-json/wp/v2/posts?categories=3&_embed');
   const data = await alltopnews.json(); 
   return { props: {data}}

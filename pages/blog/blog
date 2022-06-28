@@ -19,9 +19,9 @@ const singlepost = ({data}) => {
   )
 }
 
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
     const { id } = context.params;
-    const res = await fetch(`http://headless.local/wp-json/wp/v2/posts/?_embed&slug=${id}`);
+    const res = await fetch(`https://cohs.in/headless//wp-json/wp/v2/posts/?_embed&slug=${id}`);
     const data = await res.json(); 
     return { props: {data}}
   }

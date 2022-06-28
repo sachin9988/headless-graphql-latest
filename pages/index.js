@@ -287,7 +287,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         <div className="px-4 py-2 flex-auto">
         <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {data.slice(1, 4).map((post, index) => {
-				console.log(post)
+				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
         
@@ -329,7 +329,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         <div className={openTab === 2 ? "block" : "hidden"} id="link2">
         <div className="flex flex-col divide-y divide-coolGray-700">
                 {reviewsdata.slice(1, 4).map((post, index) => {
-				console.log(post)
+				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
 				return (<Link key={index} href={`/blog/${post['slug']}`}>
@@ -370,7 +370,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         <div className={openTab === 3 ? "block" : "hidden"} id="link2">
         <div className="flex flex-col divide-y divide-coolGray-700">
                 {topstorydata.slice(1, 4).map((post, index) => {
-				console.log(post)
+				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
 				return (<Link key={index} href={`/blog/${post['slug']}`}>
@@ -642,13 +642,13 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 }
 
 export async function getStaticProps() {
-	const topnews = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
+	const topnews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
 	const data = await topnews.json();
-	const reviews = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
+	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
 	const reviewsdata = await reviews.json();
-    const topstory = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
+    const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
     const topstorydata = await topstory.json();
-    const trending = await fetch('http://headless.local/wp-json/wp/v2/posts?&per_page=6&categories=9&_embed');
+    const trending = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=9&_embed');
     const trendingdata = await trending.json();
 
 	return { props: { data , reviewsdata, topstorydata,trendingdata } }
