@@ -16,6 +16,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 				<link  rel="icon" href="/favicon.ico" />
 			</Head>
 			<section className="px-2   sm:px-4 pt-20  dark:bg-gray-800  dark:text-gray-100 ">
+        <h2> i am running from netlify</h2>
     <div className="container dark:bg-gray-800">
     <div className="grid lg:grid-cols-2 mx-auto gap-y-6 md:gap-10">
       <div className="box-border block" style={{ zIndex: 0 }}>
