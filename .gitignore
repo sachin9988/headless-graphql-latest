@@ -4,15 +4,15 @@
 /node_modules
 /.pnp
 .pnp.js
-
+pages/indexx.js
+pages/alltopnews.js
 # testing
 /coverage
 
 # next.js
 /.next/
 /out/
-/indexx.js/
-/alltopnews.js/
+
 
 # production
 /build
