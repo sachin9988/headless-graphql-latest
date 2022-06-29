@@ -11,6 +11,8 @@
 # next.js
 /.next/
 /out/
+/indexx.js/
+/alltopnews.js/
 
 # production
 /build
