@@ -1,5 +1,4 @@
 import React from 'react'
-import Image from 'next/image';
 import { format } from "date-fns";
 import Link from 'next/link'
 const blog = ({ data,reviewsdata,topstorydata }) => {
