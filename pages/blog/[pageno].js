@@ -83,7 +83,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
       <div className="lg:col-span-8 ">
         <div className="add-container mb-6">
           <a href="">
-            <Image
+            <img
               src={'/clientbanner.jpg'}
               className="w-full h-auto"
               alt="clientbanner" 
@@ -107,7 +107,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
         <div className="aside-sidebar ml-4">
           <div className=" md:grid md:grid-cols-12 mb-6 md:gap-4">
             <a href="" className="md:col-span-6 lg:col-span-12">
-			<Image
+			<img
               src={'/clientbanner2.jpg'}
               className=""
               alt="clientbanner" 
