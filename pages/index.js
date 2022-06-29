@@ -22,7 +22,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
       <div className="box-border block" style={{ zIndex: 0 }}>
       <div className={openTab === 1 ? "block" : "hidden"} id="link1">
         <Link  href={`/blog/${data[0]['slug']}`}>
-        <div className="flex flex-col md:my-20">
+        <div className="flex flex-col md:my-20"> 
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
