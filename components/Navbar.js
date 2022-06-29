@@ -5,7 +5,6 @@ import { createPopper } from '@popperjs/core';
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Fragment } from 'react'
-import Image from 'next/image';
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -58,7 +57,7 @@ const Navbar = () => {
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <Image
+                  <img
                     className="w-[140px] h-[40px]"
                     src="/white-logo.svg"
                     alt="Workflow"
