@@ -308,7 +308,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
               <a
                 rel="noopener noreferrer"
                 href="#"
-                className="font-semibold my-2 text-xl hover:underline"
+                className="font-semibold my-2 text-sm md:text-xl hover:underline"
                 dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
               >
               </a>
