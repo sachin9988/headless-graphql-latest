@@ -15,18 +15,20 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 				<link  rel="icon" href="/favicon.ico" />
 			</Head>
 			<section className="px-2   sm:px-4 pt-20  dark:bg-gray-800  dark:text-gray-100 ">
-        <h2> i am running from netlify</h2>
     <div className="container dark:bg-gray-800">
     <div className="grid lg:grid-cols-2 mx-auto gap-y-6 md:gap-10">
       <div className="box-border block" style={{ zIndex: 0 }}>
       <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-        <Link  href={`/blog/${data[0]['slug']}`}>
+      {data.slice(0, 1).map((post, index) => {
+       var olddate = new Date(post['date']);
+       var today = format(olddate, "MMMM do, yyyy");
+    return   (<Link  href={`/blog/${post['slug']}`}>
         <div className="flex flex-col md:my-20"> 
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={data[0]['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
                 alt="postimage"
                 loading="lazy"
               />
@@ -37,17 +39,18 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
           </figure>
           <a
             href=""
-            className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
+            className="text-black px-3 py-1 text-sm md:text-xl font-semibold uppercase top-6  dark:text-gray-100 hover:underline"
           >
-            <h2>
-            {data[0]['title']['rendered']}
-            </h2>
+            <div>
+            {post['title']['rendered']}
+            </div>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
             <a href="" className="hover:text-red-500 duration-500">
               By Ashley Graham
             </a>
-            <span>{"today"}</span>
+          
+            <span>{today}</span>
             <a
               href=""
               className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
@@ -87,16 +90,20 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             </a>
           </div>
         </div>
-        </Link>
+            </Link>)
+          })}
 	    </div>
       <div className={openTab === 2 ? "block" : "hidden"} id="link1">
-        <Link  href={`/blog/${reviewsdata[0]['slug']}`}>
+      {reviewsdata.slice(0, 1).map((post, index) => {
+        var olddate = new Date(post['date']);
+				var today = format(olddate, "MMMM do, yyyy");
+      return  (<Link  href={`/blog/${post['slug']}`}>
         <div className="flex flex-col md:my-20">
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={reviewsdata[0]['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
                 alt="postimage"
                 loading="lazy"
               />
@@ -110,14 +117,14 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
           >
             <h2>
-            {reviewsdata[0]['title']['rendered']}
+            {post['title']['rendered']}
             </h2>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
             <a href="" className="hover:text-red-500 duration-500">
               By Ashley Graham
             </a>
-            <span>{"today"}</span>
+            <span>{today}</span>
             <a
               href=""
               className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
@@ -157,16 +164,20 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             </a>
           </div>
         </div>
-        </Link>
+        </Link>)
+        })}
 	    </div>
       <div className={openTab === 3 ? "block" : "hidden"} id="link1">
-        <Link  href={`/blog/${topstorydata[0]['slug']}`}>
+      {topstorydata.slice(0, 1).map((post, index) => {
+        var olddate = new Date(post['date']);
+				var today = format(olddate, "MMMM do, yyyy");
+      return   (<Link  href={`/blog/${post['slug']}`}>
         <div className="flex flex-col md:my-20">
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={topstorydata[0]['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
                 alt="postimage"
                 loading="lazy"
               />
@@ -180,14 +191,14 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
           >
             <h2>
-            {topstorydata[0]['title']['rendered']}
+            {post['title']['rendered']}
             </h2>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
             <a href="" className="hover:text-red-500 duration-500">
               By Ashley Graham
             </a>
-            <span>{"today"}</span>
+            <span>{today}</span>
             <a
               href=""
               className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
@@ -227,7 +238,8 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             </a>
           </div>
         </div>
-        </Link>
+        </Link>)
+        })}
 	    </div>
       </div>
       <div className=" pt-2  ">
@@ -419,7 +431,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             <div className="container mx-auto dark:bg-gray-800 bg-gray-100 dark:text-gray-100">
     <div className="section-title  flex flex-wrap justify-between">
       <h2 className="font-bold text-black dark:text-gray-100 text-4xl">
-        Top Stories{" "}
+        Top Stories
       </h2>
       <button
         type="button"
@@ -447,7 +459,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
           <h1
             rel="noopener noreferrer"
             href="#"
-            className="relative pl-2 text-white text-3xl   font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
+            className="relative lg:top-36 pl-2 text-gray-700 text-3xl   font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
             dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
           >
           </h1>
@@ -455,14 +467,14 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         </a>
         <a
           href=""
-          className=" pl-4 mx-2 text-gray-300 hover:text-red-500 duration-500"
+          className=" pl-4 mx-2 text-gray-700   hover:text-red-500 duration-500"
         >
           By Ashley Graham
         </a>
-        <span className="text-gray-300 mx-2">{today}</span>
+        <span className="text-gray-700 mx-2">{today}</span>
         <a
           href=""
-          className="inline-flex text-gray-300 mx-2 hover:text-red-500 duration-500"
+          className="inline-flex text-gray-700 mx-2 hover:text-red-500 duration-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -479,7 +491,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         </a>
         <a
           href=""
-          className="inline-flex text-gray-300 mx-2 hover:text-red-500 duration-500"
+          className="inline-flex text-gray-700 mx-2 hover:text-red-500 duration-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -511,7 +523,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
       >
         <a
           href=""
-          className="flex flex-col mt-24 justify-end p-4 cursor-pointer  sm:p-8 group dark:via-transparent flex-grow-1 bg-gradient-to-b dark:from-coolGray-900 dark:to-coolGray-900"
+          className="flex flex-col  mt-24 justify-end p-4 cursor-pointer  sm:p-8 group dark:via-transparent flex-grow-1 bg-gradient-to-b dark:from-coolGray-900 dark:to-coolGray-900"
         >
           <span className="flex items-center  dark:text-violet-400">
             <span className=" bg-purple-400 absolute top-2 left-2 hover:bg-purple-600 duration-700 text-white px-4 py-1  text-xs font-bold uppercase     dark:text-gray-100">
@@ -521,11 +533,11 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
           <h1
             rel="noopener noreferrer"
             href="#"
-            className="relative  text-white text-lg my-2  font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
+            className="relative lg:top-12 text-gray-900 text-lg my-2  font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
             dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
           >
           </h1>
-          <span className=" mx-2 py-3  text-gray-300  hover:text-red-500 duration-500">
+          <span className=" mx-2 py-3 relative lg:top-10 text-gray-900 dark:text-gray-100  hover:text-red-500 duration-500">
             By Ashley Graham
           </span>
         </a>
@@ -580,7 +592,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
               </a>
               <a
                 href=""
-                className=" pl-4 mx-2 my-2 text-gray-400 hover:text-red-500 duration-500"
+                className=" pl-4 mx-2 my-2 text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
               >
                 {today}
               </a>
@@ -621,7 +633,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
               </a>
               <a
                 href=""
-                className=" pl-4 mx-2 my-2 text-gray-400 hover:text-red-500 duration-500"
+                className=" pl-4 mx-2 my-2 text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
               >
                 {today}
               </a>
@@ -650,6 +662,7 @@ export async function getStaticProps() {
     const topstorydata = await topstory.json();
     const trending = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=9&_embed');
     const trendingdata = await trending.json();
+  
 
 	return { props: { data , reviewsdata, topstorydata,trendingdata } }
 }

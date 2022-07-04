@@ -5,11 +5,10 @@ import { createPopper } from '@popperjs/core';
 import { Menu, Transition } from '@headlessui/react'
 import { ChevronDownIcon } from '@heroicons/react/solid'
 import { Fragment } from 'react'
-
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-const Navbar = () => {
+const Navbar = (colorTheme) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -49,6 +48,11 @@ const Navbar = () => {
       transform: scaleX(1);
       transform-origin: bottom left;
     }
+    [data-theme='dark']{
+      .hover-underline-animation:after{
+        background-color:black;
+      }
+    }
     
   `}</style>
       <div>
@@ -58,8 +62,8 @@ const Navbar = () => {
               <div className="flex items-center">
                 <div className="flex-shrink-0">
                   <img
-                    className="w-[140px] h-[40px]"
-                    src="/white-logo.svg"
+                    className="w-[140px] h-[40px] logo"
+                    src={'./white-logo.svg'}
                     alt="Workflow"
                     height="40"
                     width="140"
@@ -105,7 +109,7 @@ const Navbar = () => {
 
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2  text-sm font-medium text-gray-700   ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full    px-4 py-2  text-base font-semibold text-gray-700   ">
                           Marketing
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -127,8 +131,8 @@ const Navbar = () => {
                                 <a
                                   href="#"
                                   className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white' : 'text-gray-700',
-                                    'block px-4 py-2 text-sm dark:bg-gray-900 dark:text-white hover-underline-animation'
+                                    active ? 'bg-gray-100  text-gray-900 dark:bg-gray-900 dark:text-white' : 'text-gray-700',
+                                    'block px-4 py-2 font-medium  text-sm dark:bg-gray-900 dark:text-white hover-underline-animation'
                                   )}
                                 >
                                   Advertising
@@ -143,7 +147,7 @@ const Navbar = () => {
                     </Menu>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md  px-4 py-2 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50  ">
                           We Do
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -219,7 +223,7 @@ const Navbar = () => {
                     </Menu>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md  px-4 py-2 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50  ">
                           Lifestyle
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -400,7 +404,7 @@ const Navbar = () => {
 
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md  px-4 py-2 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50  ">
                           Marketing
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -415,14 +419,14 @@ const Navbar = () => {
                         leaveFrom="transform opacity-100 scale-100"
                         leaveTo="transform opacity-0 scale-95"
                       >
-                        <Menu.Items className="origin-top-right dark:bg-gray-900 dark:text-white absolute left-2  right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
-                          <div className="py-1 flex flex-col">
+                        <Menu.Items className="origin-top-right dark:bg-gray-900 dark:text-white absolute left-2  right-0 mt-2 w-56 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none z-20">
+                          <div className="py-1 flex flex-col ">
                             <Menu.Item>
                               {({ active }) => (
                                 <a
                                   href="#"
                                   className={classNames(
-                                    active ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white' : 'text-gray-700',
+                                    active ? 'bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white z-40' : 'text-gray-700',
                                     'block px-4 py-2 text-sm dark:bg-gray-900 dark:text-white hover-underline-animation'
                                   )}
                                 >
@@ -438,7 +442,7 @@ const Navbar = () => {
                     </Menu>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md  px-4 py-2 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50  ">
                           We Do
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -514,7 +518,7 @@ const Navbar = () => {
                     </Menu>
                     <Menu as="div" className="relative inline-block text-left">
                       <div>
-                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md focus:border  focus:border-gray-300 shadow-sm px-4 py-2 bg-white text-sm font-medium text-gray-700 hover:bg-gray-50  ">
+                        <Menu.Button className=" hover-underline-animation dark:bg-gray-900 dark:text-white inline-flex justify-center w-full rounded-md  px-4 py-2 bg-white text-base font-semibold text-gray-700 hover:bg-gray-50  ">
                           Lifestyle
                           <ChevronDownIcon className="-mr-1 ml-2 h-5 w-5" aria-hidden="true" />
                         </Menu.Button>
@@ -587,11 +591,11 @@ const Navbar = () => {
                         </Menu.Items>
                       </Transition>
                     </Menu>
-                    <Link href={'/'} ><a
+                    <Link  href={'/'} ><a
                       href="#"
                       className="hover-underline-animation  dark:text-white px-3 py-2 rounded-md text-base font-semibold"
                     >
-                      Shop
+                      Shop 
                     </a>
 
                     </Link>

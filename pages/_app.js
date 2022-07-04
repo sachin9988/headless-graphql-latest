@@ -20,7 +20,7 @@ const [progress, setProgress] = useState(0)
 	    <button  onClick={() => setTheme("light")} className="px-4 py-1 rounded-l-full font-semibold text-sm  dark:bg-rose-600 dark:bg-transparent dark:text-rose-600 bg-rose-600 text-white  peer-checked:dark:bg-gray-300 uppercase">light</button>
 	    <button onClick={() => setTheme("dark")} className="px-4 py-1 rounded-r-full dark:bg-rose-600 dark:text-white text-rose-600 font-semibold   peer-checked:dark:bg-pink-400 uppercase">dark</button>
     </label>
-    <Component  {...pageProps} />
+    <Component colorTheme={colorTheme} {...pageProps} />
     <Footer/>
   </ThemeProvider>
   </>

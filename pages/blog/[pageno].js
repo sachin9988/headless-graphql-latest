@@ -89,11 +89,11 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className=" w-8 h-8 dark:text-gray-400">
 						<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
 					</svg>
-					<span className=" mx-2 my-2 text-gray-300 hover:text-red-500 duration-500">by Leroy Jenkins</span>
+					<span className=" mx-2 my-2 text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500">by Leroy Jenkins</span>
 				</div>
-				<span className="text-gray-300 mx-2">{today}</span>
+				<span className="text-gray-700 dark:text-gray-100 mx-2">{today}</span>
 				<div
-          className="inline-flex text-gray-300 mx-2 hover:text-red-500 duration-500"
+          className="inline-flex text-gray-700 dark:text-gray-100 mx-2 hover:text-red-500 duration-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -110,7 +110,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
        		 	</div>
 				<div
          
-          className="inline-flex text-gray-300 mx-2 hover:text-red-500 duration-500"
+          className="inline-flex text-gray-700 dark:text-gray-100 mx-2 hover:text-red-500 duration-500"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -179,7 +179,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
       </div>
       <div className="inset-y-0 top-0 right-0 w-full max-w-xl px-4 mx-auto mb-6 md:px-0 lg:pl-8 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
         <img
-          className="object-cover w-full h-56 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
+          className="object-cover w-full h-68 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
           src={data[0]['_embedded']['wp:featuredmedia'][0]['source_url']}
           alt=""
         />
@@ -205,7 +205,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
         <div className="main">
           <div className="flex flex-col divide-y justify-center divide-coolgray-700">
             <div className=" px-1 py-4" >
-            <div className="text-gray-300 mx-2">{today}</div> <br/>
+            <div className="text-gray-700 dark:text-gray-100 mx-2">{today}</div> <br/>
             <div  dangerouslySetInnerHTML={{__html: data[0]['excerpt']['rendered'] }}></div>
             </div>
             
@@ -383,7 +383,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
               </a>
               <a
                 href=""
-                className=" pl-2 mx-2  text-gray-400 hover:text-red-500 duration-500"
+                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
               >
            	 by admin
               </a>
@@ -418,7 +418,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
               </a>
               <a
                 href=""
-                className=" pl-2 mx-2  text-gray-400 hover:text-red-500 duration-500"
+                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
               >
            	 by admin
               </a>
@@ -453,7 +453,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
               </a>
               <a
                 href=""
-                className=" pl-2 mx-2  text-gray-400 hover:text-red-500 duration-500"
+                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
               >
            	 by admin
               </a>
