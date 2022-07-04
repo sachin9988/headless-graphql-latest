@@ -653,7 +653,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 	)
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const topnews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
 	const data = await topnews.json();
 	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
