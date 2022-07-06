@@ -646,7 +646,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
   };
 };
 
-export async function getServerSideProps(context) {
+export async function getStaticProps(context) {
 	const id = context.params.pageno;
   console.log(id)
 	const res = await fetch(`https://cohs.in/headless/wp-json/wp/v2/posts/?_embed&slug=${id}`);

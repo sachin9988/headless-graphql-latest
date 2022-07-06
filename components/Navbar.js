@@ -8,7 +8,7 @@ import { Fragment } from 'react'
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
-const Navbar = (colorTheme) => {
+const Navbar = ({logo}) => {
   const [isOpen, setIsOpen] = useState(false);
   const [dropdownPopoverShow, setDropdownPopoverShow] = React.useState(false);
   const btnDropdownRef = React.createRef();
@@ -63,7 +63,7 @@ const Navbar = (colorTheme) => {
                 <div className="flex-shrink-0">
                   <img
                     className="w-[140px] h-[40px] logo"
-                    src={'./white-logo.svg'}
+                    src={logo}
                     alt="Workflow"
                     height="40"
                     width="140"
