@@ -61,6 +61,7 @@ const Navbar = ({logo}) => {
             <div className="flex items-center justify-between h-16">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
+                  {/* dynamic logo updated */}
                   <img
                     className="w-[140px] h-[40px] logo"
                     src={logo}
