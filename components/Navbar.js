@@ -64,7 +64,7 @@ const Navbar = ({logo}) => {
                   {/* dynamic logo updated */}
                   <img
                     className="w-[140px] h-[40px] logo"
-                    src={logo}
+                    src={'/'+logo}
                     alt="Workflow"
                     height="40"
                     width="140"

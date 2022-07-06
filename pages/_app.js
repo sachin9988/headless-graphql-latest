@@ -10,7 +10,7 @@ import {useEffect, useState} from 'react'
 function MyApp({ Component, pageProps }) {
 const [colorTheme, setTheme] = useDarkMode();
 const [progress, setProgress] = useState(0)
-const [logo, setLogo] = useState("/white-logo.svg");
+const [logo, setLogo] = useState("white-logo.svg");
 
   return <>
   <ThemeProvider attribute='class'>
