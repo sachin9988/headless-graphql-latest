@@ -8,7 +8,7 @@ import {useEffect, useState} from 'react'
 
 
 function MyApp({ Component, pageProps }) {
-const [colorTheme, setTheme] = useDarkMode();
+const [colorTheme, setTheme] = useDarkMode("dark");
 const [progress, setProgress] = useState(0)
 const [logo, setLogo] = useState("white-logo.svg");
 
