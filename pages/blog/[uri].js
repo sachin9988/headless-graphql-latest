@@ -1,9 +1,11 @@
 import React from 'react'
 import { format } from "date-fns";
 import Link from 'next/link'
-const blog = ({ data,reviewsdata,topstorydata }) => {
-            var olddate = new Date(data[0]['date']);
-            var today = format(olddate, "MMMM do, yyyy");
+import { client } from '../../lib/apollo';
+import { gql } from "@apollo/client";
+const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
+  var olddate = new Date(post.date);
+  var today = format(olddate, "MMMM do, yyyy");
 	const [openTab, setOpenTab] = React.useState(1);
 	return (
 		
@@ -14,10 +16,10 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
 					<div className="flex items-center justify-center w-full px-6 py-8 lg:py-2 lg:h-[32rem] lg:w-1/2">
 						<div className="max-w-xl py-10 sm:py-0">
 						<span className=" bg-blue-700 absolute top-24 dark:bg-red  left-10 text-white px-4 py-1 text-xs font-bold uppercase     dark:text-gray-100">
-            {data[0]['_embedded']['wp:term']['0']['0']['name'] }
+            {'category' }
             </span>
 							<h2 className="text-2xl font-semibold text-gray-800  dark:text-white lg:text-4xl">
-								{data[0]['title']['rendered']}
+								{posts.title}
 							</h2>
 				<div className="flex items-center space-x-6 py-6">
 				<div className="flex space-x-2">
@@ -79,10 +81,10 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
       <div className="w-full max-w-xl px-4 mx-auto md:px-0 lg:px-8 lg:py-20 lg:max-w-screen-xl">
         <div className="mb-0 lg:max-w-[600px] lg:pr-8 xl:pr-6">
         <span className=" bg-blue-700 absolute lg:top-5 top-2 dark:bg-red  left-8 text-white px-4 py-1 text-xs font-bold uppercase     dark:text-gray-100">
-            {data[0]['_embedded']['wp:term']['0']['0']['name'] }
+            {'category' }
             </span>
             <h2 className="text-2xl font-semibold text-gray-800  dark:text-white lg:text-4xl">
-								{data[0]['title']['rendered']}
+								{post.title}
 							</h2>
               <div className="flex items-center space-x-6 py-6">
 				<div className="flex space-x-2">
@@ -180,7 +182,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
       <div className="inset-y-0 top-0 right-0 w-full max-w-xl px-4 mx-auto mb-6 md:px-0 lg:pl-8 lg:pr-0 lg:mb-0 lg:mx-0 lg:w-1/2 lg:max-w-full lg:absolute xl:px-0">
         <img
           className="object-cover w-full h-68 rounded shadow-lg lg:rounded-none lg:shadow-none md:h-96 lg:h-full"
-          src={data[0]['_embedded']['wp:featuredmedia'][0]['source_url']}
+          src={post.featuredImage.node.sourceUrl}
           alt=""
         />
       </div>
@@ -206,7 +208,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
           <div className="flex flex-col divide-y justify-center divide-coolgray-700">
             <div className=" px-1 py-4" >
             <div className="text-gray-700 dark:text-gray-100 mx-2">{today}</div> <br/>
-            <div  dangerouslySetInnerHTML={{__html: data[0]['excerpt']['rendered'] }}></div>
+            <div  dangerouslySetInnerHTML={{__html: post.excerpt }}></div>
             </div>
             
             {/**/}
@@ -358,113 +360,7 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
 			  </ul>
 							
         </div>
-        <div className="px-2 py-2 flex-auto">
-        <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                {topstorydata.slice(1, 4).map((post, index) => {
-				// console.log(post)
-				var olddate = new Date(post['date']);
-				var today = format(olddate, "MMMM do, yyyy");
         
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
-                        <div className="flex  py-4">
-            <img
-              alt=""
-              className="flex-shrink-0 object-cover w-28 h-28 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
-              loading="lazy"
-            />
-           				 <div className="flex flex-col flex-grow">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="font-semibold my-2 text-lg hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'].slice(0, 45) }}
-              >
-              </a>
-              <a
-                href=""
-                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
-              >
-           	 by admin
-              </a>
-           				 </div>
-                        </div>
-                        </Link>)
-                        })}
-                        
-          {/**/}
-        </div>
-		<div className={openTab === 2 ? "block" : "hidden"} id="link1">
-                {topstorydata.slice(1, 4).map((post, index) => {
-				// console.log(post)
-				var olddate = new Date(post['date']);
-				var today = format(olddate, "MMMM do, yyyy");
-        
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
-                        <div className="flex  py-4">
-            <img
-              alt=""
-              className="flex-shrink-0 object-cover w-28 h-28 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
-              loading="lazy"
-            />
-           				 <div className="flex flex-col flex-grow">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="font-semibold my-2 text-lg hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'].slice(0, 45) }}
-              >
-              </a>
-              <a
-                href=""
-                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
-              >
-           	 by admin
-              </a>
-           				 </div>
-                        </div>
-                        </Link>)
-                        })}
-                        
-          {/**/}
-        </div>
-		<div className={openTab === 3 ? "block" : "hidden"} id="link1">
-                {topstorydata.slice(1, 4).map((post, index) => {
-				// console.log(post)
-				var olddate = new Date(post['date']);
-				var today = format(olddate, "MMMM do, yyyy");
-        
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
-                        <div className="flex  py-4">
-            <img
-              alt=""
-              className="flex-shrink-0 object-cover w-28 h-28 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
-              loading="lazy"
-            />
-           				 <div className="flex flex-col flex-grow">
-              <a
-                rel="noopener noreferrer"
-                href="#"
-                className="font-semibold my-2 text-lg hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'].slice(0, 45) }}
-              >
-              </a>
-              <a
-                href=""
-                className=" pl-2 mx-2  text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500"
-              >
-           	 by admin
-              </a>
-           				 </div>
-                        </div>
-                        </Link>)
-                        })}
-                        
-          {/**/}
-        </div>
-       	 </div>
              
         </div>
 
@@ -626,35 +522,83 @@ const blog = ({ data,reviewsdata,topstorydata }) => {
 		</div>
 	)
 }
-
-  export const getStaticPaths = async () => {
-  const res = await fetch("https://cohs.in/headless/wp-json/wp/v2/posts/");
-  const data = await res.json(); 
-
-  const paths = data.map((curElem) => {
-    console.log(curElem)
-    return {
-      params: {
-        pageno: curElem.slug.toString(),
-      },
-    };
-  });
   
-  return {
-    paths,
-    fallback: 'blocking',
-  };
-};
+  // export const getStaticPaths = async () => {
+  // const res = await fetch("https://cohs.in/headless/wp-json/wp/v2/posts/");
+  // const data = await res.json(); 
 
-export async function getStaticProps(context) {
-	const id = context.params.pageno;
-  console.log(id)
-	const res = await fetch(`https://cohs.in/headless/wp-json/wp/v2/posts/?_embed&slug=${id}`);
-	const data = await res.json();
-	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
-	const reviewsdata = await reviews.json();
-    const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
-    const topstorydata = await topstory.json();
-	return { props: { data,reviewsdata,topstorydata } }
+  // const paths = data.map((curElem) => {
+  //   console.log(curElem)
+  //   return {
+  //     params: {
+  //       pageno: curElem.slug.toString(),
+  //     },
+  //   };
+  // });
+  
+//   return {
+//     paths,
+//     fallback: 'blocking',
+//   };
+// };
+
+// export async function getStaticProps(context) {
+// 	const id = context.params.pageno;
+//   console.log(id)
+// 	const res = await fetch(`https://cohs.in/headless/wp-json/wp/v2/posts/?_embed&slug=${id}`);
+// 	const data = await res.json();
+// 	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
+// 	const reviewsdata = await reviews.json();
+//     const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
+//     const topstorydata = await topstory.json();
+// 	return { props: { data,reviewsdata,topstorydata } }
+// }
+
+export async function getStaticProps({ params }){
+  const GET_POST = gql`
+    query GetPostByURI($id: ID!) {
+      post(id: $id, idType: URI) {
+        title
+        content
+        date
+        uri
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+        categories {
+          nodes {
+            name
+          }
+        }
+        excerpt(format: RENDERED)
+      }
+    }
+  `;
+
+  //  the params argument for this function corresponds to the dynamic URL segments
+  //  we included in our page-based route. So, in this case, the `params` object will have
+  //  a property named `uri` that contains that route segment when a user hits the page
+  const response = await client.query({
+    query: GET_POST,
+    variables: {
+      id: params.uri
+    }
+  })
+  const post = response?.data?.post
+  return {
+    props: {
+      post
+    }
+  }
+}
+
+export async function getStaticPaths(){
+    const paths = []
+    return {
+        paths,
+        fallback: 'blocking'
+    }
 }
 export default blog

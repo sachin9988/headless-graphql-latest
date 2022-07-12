@@ -5,6 +5,8 @@ import { ThemeProvider } from 'next-theme';
 import useDarkMode from '../components/useDarkMode';
 import NextNProgress from "nextjs-progressbar";
 import {useEffect, useState} from 'react'
+import { ApolloProvider } from "@apollo/client/react";
+import { client } from "../lib/apollo";
 
 
 function MyApp({ Component, pageProps }) {
@@ -12,7 +14,22 @@ const [colorTheme, setTheme] = useDarkMode("dark");
 const [progress, setProgress] = useState(0)
 const [logo, setLogo] = useState("white-logo.svg");
 
+
+useEffect(() => {
+    if(colorTheme==="light"){    
+      setLogo("white-logo.svg");
+      setTheme("dark")
+    }
+    else{ 
+      setLogo("logo-black.svg")
+      setTheme("light")
+
+    }
+    console.log(colorTheme);
+}, []);
+
   return <>
+  <ApolloProvider client={client}>
   <ThemeProvider attribute='class'>
   <NextNProgress color='rgb(220,20,60)'  options={{ easing: "ease", speed: 500 }} />
     <Navbar logo={logo} />
@@ -24,6 +41,7 @@ const [logo, setLogo] = useState("white-logo.svg");
     <Component logo={logo} {...pageProps} />
     <Footer/>
   </ThemeProvider>
+  </ApolloProvider>
   </>
 }
 

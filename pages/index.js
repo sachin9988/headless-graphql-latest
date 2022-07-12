@@ -4,8 +4,10 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import React from 'react'
 import { format } from "date-fns";
+import { client } from '../lib/apollo';
+import { gql } from "@apollo/client";
 //testing
-export default function Home({ data, reviewsdata, topstorydata, trendingdata }) {
+export default function Home({posts, data, reviewsdata, topstorydata, trendingdata }) {
   const [openTab, setOpenTab] = React.useState(1);
 	return (
 		<div >
@@ -19,16 +21,16 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
     <div className="grid lg:grid-cols-2 mx-auto gap-y-6 md:gap-10">
       <div className="box-border block" style={{ zIndex: 0 }}>
       <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-      {data.slice(0, 1).map((post, index) => {
+      {posts.slice(0, 1).map((post, index) => {
        var olddate = new Date(post['date']);
        var today = format(olddate, "MMMM do, yyyy");
-    return   (<Link  href={`/blog/${post['slug']}`}>
+    return   (<Link  href={`/blog/${post['uri']}`}>
         <div className="flex flex-col md:my-20"> 
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post.featuredImage.node.sourceUrl}
                 alt="postimage"
                 loading="lazy"
               />
@@ -42,7 +44,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             className="text-black px-3 py-1 text-sm md:text-xl font-semibold uppercase top-6  dark:text-gray-100 hover:underline"
           >
             <div>
-            {post['title']['rendered']}
+            {post['title']}
             </div>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
@@ -94,16 +96,16 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
           })}
 	    </div>
       <div className={openTab === 2 ? "block" : "hidden"} id="link1">
-      {reviewsdata.slice(0, 1).map((post, index) => {
+      {posts.slice(0, 1).map((post, index) => {
         var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
-      return  (<Link  href={`/blog/${post['slug']}`}>
+      return  (<Link  href={`/blog/${post['uri']}`}>
         <div className="flex flex-col md:my-20">
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post.featuredImage.node.sourceUrl}
                 alt="postimage"
                 loading="lazy"
               />
@@ -117,7 +119,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
           >
             <h2>
-            {post['title']['rendered']}
+            {post['title']}
             </h2>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
@@ -168,16 +170,16 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         })}
 	    </div>
       <div className={openTab === 3 ? "block" : "hidden"} id="link1">
-      {topstorydata.slice(0, 1).map((post, index) => {
+      {posts.slice(0, 1).map((post, index) => {
         var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
-      return   (<Link  href={`/blog/${post['slug']}`}>
+      return   (<Link  href={`/blog/${post['uri']}`}>
         <div className="flex flex-col md:my-20">
           <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
             <a href="" className="block">
               <img
                 className='w-[600px] min-[600px]'
-                src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+                src={post.featuredImage.node.sourceUrl}
                 alt="postimage"
                 loading="lazy"
               />
@@ -191,7 +193,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
             className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
           >
             <h2>
-            {post['title']['rendered']}
+            {post['title']}
             </h2>
           </a>
           <div className="flex space-x-4 font-xs text-gray-500">
@@ -298,17 +300,17 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         </div>
         <div className="px-4 py-2 flex-auto">
         <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                {data.slice(1, 4).map((post, index) => {
+                {posts.slice(1, 4).map((post, index) => {
 				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
         
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
+				return (<Link key={index} href={`/blog/${post['uri']}`}>
                         <div className="flex px-1 py-4">
             <img
               alt=""
               className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+              src={post.featuredImage.node.sourceUrl}
               loading="lazy"
             />
             <div className="flex flex-col flex-grow">
@@ -321,7 +323,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
                 rel="noopener noreferrer"
                 href="#"
                 className="font-semibold my-2 text-sm md:text-xl hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+                dangerouslySetInnerHTML={{__html: post['title'] }}
               >
               </a>
               <a
@@ -340,16 +342,16 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         </div>
         <div className={openTab === 2 ? "block" : "hidden"} id="link2">
         <div className="flex flex-col divide-y divide-coolGray-700">
-                {reviewsdata.slice(1, 4).map((post, index) => {
+                {posts.slice(1, 4).map((post, index) => {
 				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
+				return (<Link key={index} href={`/blog/${post['uri']}`}>
                         <div className="flex px-1 py-4">
             <img
               alt=""
               className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+              src={post.featuredImage.node.sourceUrl}
               loading="lazy"
             />
             <div className="flex flex-col flex-grow">
@@ -362,7 +364,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
                 rel="noopener noreferrer"
                 href="#"
                 className="font-semibold my-2 text-xl hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+                dangerouslySetInnerHTML={{__html: post['title'] }}
               >
               </a>
               <a
@@ -381,16 +383,16 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         </div>
         <div className={openTab === 3 ? "block" : "hidden"} id="link2">
         <div className="flex flex-col divide-y divide-coolGray-700">
-                {topstorydata.slice(1, 4).map((post, index) => {
+                {posts.slice(1, 4).map((post, index) => {
 				//console.log(post)
 				var olddate = new Date(post['date']);
 				var today = format(olddate, "MMMM do, yyyy");
-				return (<Link key={index} href={`/blog/${post['slug']}`}>
+				return (<Link key={index} href={`/blog/${post['uri']}`}>
                         <div className="flex px-1 py-4">
             <img
               alt=""
               className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+              src={post.featuredImage.node.sourceUrl}
               loading="lazy"
             />
             <div className="flex flex-col flex-grow">
@@ -403,7 +405,7 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
                 rel="noopener noreferrer"
                 href="#"
                 className="font-semibold my-2 text-xl hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+                dangerouslySetInnerHTML={{__html: post['title'] }}
               >
               </a>
               <a
@@ -441,26 +443,26 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
       </button>
     </div>
     <div className="grid lg:grid-cols-3 py-10 lg:grid-rows-2 gap-6">
-    {topstorydata.slice(0, 1).map((post, index) => {
+    {posts.slice(0, 1).map((post, index) => {
 
     var olddate = new Date(post['date']);
     var today = format(olddate, "MMMM do, yyyy");
-    return (<Link key={index} href={`/blog/${post['slug']}`}>
+    return (<Link key={index} href={`/blog/${post['uri']}`}>
       <div
         className="relative  bg-center bg-no-repeat bg-cover md:row-span-2  md:col-span-2 w-full"
-        style={{ background: `url(${post['_embedded']['wp:featuredmedia'][0]['source_url']})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
+        style={{ background: `url(${post.featuredImage.node.sourceUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}>
         <a className="flex flex-col mt-72  justify-end p-4 cursor-pointer  sm:p-8 group dark:via-transparent flex-grow-1 bg-gradient-to-b dark:from-coolGray-900 dark:to-coolGray-900">
           <span className="flex items-center mb-4 space-x-2 dark:text-violet-400">
             
             <span className=" bg-blue-700 absolute top-2  left-2 text-white px-4 py-1 text-xs font-bold uppercase     dark:text-gray-100">
-            {post['_embedded']['wp:term']['0']['0']['name'] }
+            {'category'}
             </span>
           </span>
           <h1
             rel="noopener noreferrer"
             href="#"
             className="relative lg:top-36 pl-2 text-gray-700 text-3xl   font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
-            dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+            dangerouslySetInnerHTML={{__html: post['title'] }}
           >
           </h1>
           <span className="flex  space-x-10"></span>
@@ -512,14 +514,14 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
       </div>
       </Link>)
 	})} 
-    {topstorydata.slice(1, 3).map((post, index) => {
+    {posts.slice(1, 3).map((post, index) => {
 
     var olddate = new Date(post['date']);
     var today = format(olddate, "MMMM do, yyyy");
-    return (<Link key={index} href={`/blog/${post['slug']}`}>
+    return (<Link key={index} href={`/blog/${post['uri']}`}>
       <div
         className="relative  bg-center bg-no-repeat bg-cover"
-        style={{ background: `url(${post['_embedded']['wp:featuredmedia'][0]['source_url']})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
+        style={{ background: `url(${post.featuredImage.node.sourceUrl})`, backgroundRepeat: 'no-repeat', backgroundSize: 'cover' }}
       >
         <a
           href=""
@@ -527,14 +529,14 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
         >
           <span className="flex items-center  dark:text-violet-400">
             <span className=" bg-purple-400 absolute top-2 left-2 hover:bg-purple-600 duration-700 text-white px-4 py-1  text-xs font-bold uppercase     dark:text-gray-100">
-            {post['_embedded']['wp:term']['0']['1']['name'] }
+            {'category' }
             </span>
           </span>
           <h1
             rel="noopener noreferrer"
             href="#"
             className="relative lg:top-12 text-gray-900 text-lg my-2  font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
-            dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+            dangerouslySetInnerHTML={{__html: post['title'] }}
           >
           </h1>
           <span className=" mx-2 py-3 relative lg:top-10 text-gray-900 dark:text-gray-100  hover:text-red-500 duration-500">
@@ -564,29 +566,29 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
     <div className="grid lg:grid-cols-2 py-10  gap-6">
       <div className="box">
         <div className="flex flex-col divide-y divide-coolGray-700">
-        {trendingdata.slice(0, 3).map((post, index) => {
+        {posts.slice(0, 3).map((post, index) => {
 
             var olddate = new Date(post['date']);
             var today = format(olddate, "MMMM do, yyyy");
-            return (<Link key={index} href={`/blog/${post['slug']}`}>
+            return (<Link key={index} href={`/blog/${post['uri']}`}>
           <div className="flex px-1 py-4">
             <img
               alt=""
               className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+              src={post.featuredImage.node.sourceUrl}
               loading="lazy"
             />
             <div className="flex flex-col flex-grow">
               <a href="">
                 <span className=" bg-blue-700 text-white px-4 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
-                {post['_embedded']['wp:term']['0']['0']['name'] }
+                {'category' }
                 </span>
               </a>
               <a
                 rel="noopener noreferrer"
                 href="#"
                 className="font-semibold my-2 text-xl hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+                dangerouslySetInnerHTML={{__html: post['title'] }}
               >
                 
               </a>
@@ -605,29 +607,29 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
       </div>
       <div className="box">
       <div className="flex flex-col divide-y divide-coolGray-700">
-        {trendingdata.slice(3, 6).map((post, index) => {
+        {posts.slice(3, 6).map((post, index) => {
 
             var olddate = new Date(post['date']);
             var today = format(olddate, "MMMM do, yyyy");
-            return (<Link key={index} href={`/blog/${post['slug']}`}>
+            return (<Link key={index} href={`/blog/${post['uri']}`}>
           <div className="flex px-1 py-4">
             <img
               alt=""
               className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
-              src={post['_embedded']['wp:featuredmedia'][0]['source_url']}
+              src={post.featuredImage.node.sourceUrl}
               loading="lazy"
             />
             <div className="flex flex-col flex-grow">
               <a href="">
                 <span className=" bg-blue-700 text-white px-4 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
-                {post['_embedded']['wp:term']['0']['0']['name'] }
+                {'category' }
                 </span>
               </a>
               <a
                 rel="noopener noreferrer"
                 href="#"
                 className="font-semibold my-2 text-xl hover:underline"
-                dangerouslySetInnerHTML={{__html: post['title']['rendered'] }}
+                dangerouslySetInnerHTML={{__html: post['title'] }}
               >
                 
               </a>
@@ -653,16 +655,63 @@ export default function Home({ data, reviewsdata, topstorydata, trendingdata }) 
 	)
 }
 // change props
-export async function getStaticProps() {
-	const topnews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
-	const data = await topnews.json();
-	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
-	const reviewsdata = await reviews.json();
-    const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
-    const topstorydata = await topstory.json();
-    const trending = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=9&_embed');
-    const trendingdata = await trending.json();
+// export async function getStaticProps() {
+// 	const topnews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=3&_embed');
+// 	const data = await topnews.json();
+// 	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
+// 	const reviewsdata = await reviews.json();
+//     const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
+//     const topstorydata = await topstory.json();
+//     const trending = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=9&_embed');
+//     const trendingdata = await trending.json();
   
 
-	return { props: { data , reviewsdata, topstorydata,trendingdata } }
+// 	return { props: { data , reviewsdata, topstorydata,trendingdata } }
+// }
+
+export async function getStaticProps(){
+
+  // Paste your GraphQL query inside of a gql tagged template literal
+  const GET_POSTS = gql`
+  query AllPostsQuery {
+    posts {
+      nodes {
+        title
+        content
+        date
+        uri
+        featuredImage {
+          node {
+            sourceUrl
+          }
+        }
+        categories {
+          nodes {
+            name
+          }
+        }
+        excerpt(format: RENDERED)
+      }
+    }
+  }
+  `;
+  
+  // Here we make a call with the client and pass in our query string to the 
+  // configuration objects 'query' property
+  const response = await client.query({
+    query: GET_POSTS
+  });
+ 
+  // Once we get the response back, we need to traverse it to pull out the 
+  // data we want to pass into the HomePage
+  const posts = response?.data?.posts?.nodes; 
+
+  
+
+
+  return {
+    props: {
+      posts
+    }
+  }
 }
