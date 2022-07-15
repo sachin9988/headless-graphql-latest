@@ -7,9 +7,10 @@ import NextNProgress from "nextjs-progressbar";
 import {useEffect, useState} from 'react'
 import { ApolloProvider } from "@apollo/client/react";
 import { client } from "../lib/apollo";
+import { gql } from "@apollo/client";
 
 
-function MyApp({ Component, pageProps }) {
+export default function MyApp({ Component, pageProps }) {
 const [colorTheme, setTheme] = useDarkMode("dark");
 const [progress, setProgress] = useState(0)
 const [logo, setLogo] = useState("white-logo.svg");
@@ -38,7 +39,7 @@ useEffect(() => {
 	    <button  onClick={() =>  [setTheme("light"),  setLogo("logo-black.svg")]} className="px-4 py-1 rounded-l-full font-semibold text-sm  dark:bg-rose-600 dark:bg-transparent dark:text-rose-600 bg-rose-600 text-white  peer-checked:dark:bg-gray-300 uppercase">light</button>
 	    <button onClick={() => [setTheme("dark"), setLogo("white-logo.svg")]} className="px-4 py-1 rounded-r-full dark:bg-rose-600 dark:text-white text-rose-600 font-semibold   peer-checked:dark:bg-pink-400 uppercase">dark</button>
     </label>
-    <Component logo={logo} {...pageProps} />
+    <Component  logo={logo} {...pageProps} />
     <Footer/>
   </ThemeProvider>
   </ApolloProvider>
@@ -46,4 +47,4 @@ useEffect(() => {
 }
 
 
-export default MyApp
+
