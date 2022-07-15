@@ -554,7 +554,7 @@ const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
 // 	return { props: { data,reviewsdata,topstorydata } }
 // }
 
-export async function getStaticProps({ params }){
+export async function getServerSideProps({ params }){
   const GET_POST = gql`
     query GetPostByURI($id: ID!) {
       post(id: $id, idType: URI) {
@@ -594,11 +594,11 @@ export async function getStaticProps({ params }){
   }
 }
 
-export async function getStaticPaths(){
-    const paths = []
-    return {
-        paths,
-        fallback: 'blocking'
-    }
-}
+// export async function getStaticPaths(){
+//     const paths = []
+//     return {
+//         paths,
+//         fallback: 'blocking'
+//     }
+// }
 export default blog
