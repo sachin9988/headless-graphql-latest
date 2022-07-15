@@ -780,7 +780,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
 //     }
 //   }
 // }
-
+ // getting data from graphql
 export async function getStaticProps() {
   const data = await client.query({
     query: gql`
