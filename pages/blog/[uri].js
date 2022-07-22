@@ -3,7 +3,7 @@ import { format } from "date-fns";
 import Link from 'next/link'
 import { client } from '../../lib/apollo';
 import { gql } from "@apollo/client";
-const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
+const blog = ({post }) => {
   var olddate = new Date(post.date);
   var today = format(olddate, "MMMM do, yyyy");
 	const [openTab, setOpenTab] = React.useState(1);
@@ -91,7 +91,7 @@ const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
 					<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className=" w-8 h-8 dark:text-gray-400">
 						<path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-6-3a2 2 0 11-4 0 2 2 0 014 0zm-2 4a5 5 0 00-4.546 2.916A5.986 5.986 0 0010 16a5.986 5.986 0 004.546-2.084A5 5 0 0010 11z" clipRule="evenodd"></path>
 					</svg>
-					<span className=" mx-2 my-2 text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500">by Leroy Jenkins</span>
+					<span className=" mx-2 my-2 text-gray-700 dark:text-gray-100 hover:text-red-500 duration-500">{post['author']['node']['name']}</span>
 				</div>
 				<span className="text-gray-700 dark:text-gray-100 mx-2">{today}</span>
 				<div
@@ -209,6 +209,7 @@ const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
             <div className=" px-1 py-4" >
             <div className="text-gray-700 dark:text-gray-100 mx-2">{today}</div> <br/>
             <div  dangerouslySetInnerHTML={{__html: post.excerpt }}></div>
+            <div dangerouslySetInnerHTML={{__html: post.content }}></div>
             </div>
             
             {/**/}
@@ -523,38 +524,9 @@ const blog = ({post,posts, data,reviewsdata,topstorydata }) => {
 	)
 }
   
-  // export const getStaticPaths = async () => {
-  // const res = await fetch("https://cohs.in/headless/wp-json/wp/v2/posts/");
-  // const data = await res.json(); 
 
-  // const paths = data.map((curElem) => {
-  //   console.log(curElem)
-  //   return {
-  //     params: {
-  //       pageno: curElem.slug.toString(),
-  //     },
-  //   };
-  // });
-  
-//   return {
-//     paths,
-//     fallback: 'blocking',
-//   };
-// };
 
-// export async function getStaticProps(context) {
-// 	const id = context.params.pageno;
-//   console.log(id)
-// 	const res = await fetch(`https://cohs.in/headless/wp-json/wp/v2/posts/?_embed&slug=${id}`);
-// 	const data = await res.json();
-// 	const reviews = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=5&_embed');
-// 	const reviewsdata = await reviews.json();
-//     const topstory = await fetch('https://cohs.in/headless/wp-json/wp/v2/posts?&per_page=6&categories=6&_embed');
-//     const topstorydata = await topstory.json();
-// 	return { props: { data,reviewsdata,topstorydata } }
-// }
-
-export async function getServerSideProps({ params }){
+export async function getStaticProps({ params }){
   const GET_POST = gql`
     query GetPostByURI($id: ID!) {
       post(id: $id, idType: URI) {
@@ -573,6 +545,11 @@ export async function getServerSideProps({ params }){
           }
         }
         excerpt(format: RENDERED)
+        author {
+          node {
+            name
+          }
+        }
       }
     }
   `;
@@ -594,11 +571,11 @@ export async function getServerSideProps({ params }){
   }
 }
 
-// export async function getStaticPaths(){
-//     const paths = []
-//     return {
-//         paths,
-//         fallback: 'blocking'
-//     }
-// }
+export async function getStaticPaths(){
+    const paths = []
+    return {
+        paths,
+        fallback: 'blocking'
+    }
+}
 export default blog

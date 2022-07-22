@@ -4,8 +4,9 @@ import styles from '../styles/Home.module.css'
 import Link from 'next/link'
 import React from 'react'
 import { format } from "date-fns";
-import { client } from '../lib/apollo';
+import { client2 } from '../lib/apollo';
 import { useQuery, gql } from "@apollo/client";
+
 //testing
 export default function Home({ posts, reviews, topstory, trending }) {
   const [openTab, setOpenTab] = React.useState(1);
@@ -22,7 +23,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
             <div className="box-border block" style={{ zIndex: 0 }}>
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {posts.slice(0, 1).map((post, index) => {
-                  console.log(post);
+                  
                   var olddate = new Date(post['date']);
                   var today = format(olddate, "MMMM do, yyyy");
                   return (<Link href={`/blog${post['uri']}`}>
@@ -50,7 +51,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
                         <a href="" className="hover:text-red-500 duration-500">
-                          By Ashley Graham
+                          {post['author']['node']['name']}
                         </a>
 
                         <span>{today}</span>
@@ -125,7 +126,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
                         <a href="" className="hover:text-red-500 duration-500">
-                          By Ashley Graham
+                          {post['author']['node']['name']}
                         </a>
                         <span>{today}</span>
                         <a
@@ -199,7 +200,155 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
                         <a href="" className="hover:text-red-500 duration-500">
-                          By Ashley Graham
+                          {post['author']['node']['name']}
+                        </a>
+                        <span>{today}</span>
+                        <a
+                          href=""
+                          className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mx-1 my-1"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                          >
+                            <path
+                              fill=""
+                              d="M18.737,9.691h-5.462c-0.279,0-0.527,0.174-0.619,0.437l-1.444,4.104L8.984,3.195c-0.059-0.29-0.307-0.506-0.603-0.523C8.09,2.657,7.814,2.838,7.721,3.12L5.568,9.668H1.244c-0.36,0-0.655,0.291-0.655,0.655c0,0.36,0.294,0.655,0.655,0.655h4.8c0.281,0,0.532-0.182,0.621-0.45l1.526-4.645l2.207,10.938c0.059,0.289,0.304,0.502,0.595,0.524c0.016,0,0.031,0,0.046,0c0.276,0,0.524-0.174,0.619-0.437L13.738,11h4.999c0.363,0,0.655-0.294,0.655-0.655C19.392,9.982,19.1,9.691,18.737,9.691z"
+                            />
+                          </svg>
+                          5k Views
+                        </a>
+                        <a
+                          href="#"
+                          className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mx-1 my-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                            />
+                          </svg>
+                          230 Shares
+                        </a>
+                      </div>
+                    </div>
+                  </Link>)
+                })}
+              </div>
+              <div className={openTab === 4 ? "block" : "hidden"} id="link1">
+                {topstory.slice(0, 1).map((post, index) => {
+                  var olddate = new Date(post['date']);
+                  var today = format(olddate, "MMMM do, yyyy");
+                  return (<Link href={`/blog${post['uri']}`}>
+                    <div className="flex flex-col md:my-20">
+                      <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
+                        <a href="" className="block">
+                          <img
+                            className='w-[600px] min-[600px]'
+                            src={post.featuredImage.node.sourceUrl}
+                            alt="postimage"
+                            loading="lazy"
+                          />
+                        </a>
+                        <span className="absolute bg-blue-700 text-white px-3 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
+                          <a href="">Technology</a>
+                        </span>
+                      </figure>
+                      <a
+                        href=""
+                        className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
+                      >
+                        <h2>
+                          {post['title']}
+                        </h2>
+                      </a>
+                      <div className="flex space-x-4 font-xs text-gray-500">
+                        <a href="" className="hover:text-red-500 duration-500">
+                          {post['author']['node']['name']}
+                        </a>
+                        <span>{today}</span>
+                        <a
+                          href=""
+                          className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mx-1 my-1"
+                            viewBox="0 0 20 20"
+                            stroke="currentColor"
+                          >
+                            <path
+                              fill=""
+                              d="M18.737,9.691h-5.462c-0.279,0-0.527,0.174-0.619,0.437l-1.444,4.104L8.984,3.195c-0.059-0.29-0.307-0.506-0.603-0.523C8.09,2.657,7.814,2.838,7.721,3.12L5.568,9.668H1.244c-0.36,0-0.655,0.291-0.655,0.655c0,0.36,0.294,0.655,0.655,0.655h4.8c0.281,0,0.532-0.182,0.621-0.45l1.526-4.645l2.207,10.938c0.059,0.289,0.304,0.502,0.595,0.524c0.016,0,0.031,0,0.046,0c0.276,0,0.524-0.174,0.619-0.437L13.738,11h4.999c0.363,0,0.655-0.294,0.655-0.655C19.392,9.982,19.1,9.691,18.737,9.691z"
+                            />
+                          </svg>
+                          5k Views
+                        </a>
+                        <a
+                          href="#"
+                          className="flex justify-between cursor-pointer hover:text-red-500 duration-500"
+                        >
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="h-4 w-4 mx-1 my-1"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            stroke="currentColor"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z"
+                            />
+                          </svg>
+                          230 Shares
+                        </a>
+                      </div>
+                    </div>
+                  </Link>)
+                })}
+              </div>
+              <div className={openTab === 5 ? "block" : "hidden"} id="link1">
+                {topstory.slice(0, 1).map((post, index) => {
+                  var olddate = new Date(post['date']);
+                  var today = format(olddate, "MMMM do, yyyy");
+                  return (<Link href={`/blog${post['uri']}`}>
+                    <div className="flex flex-col md:my-20">
+                      <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
+                        <a href="" className="block">
+                          <img
+                            className='w-[600px] min-[600px]'
+                            src={post.featuredImage.node.sourceUrl}
+                            alt="postimage"
+                            loading="lazy"
+                          />
+                        </a>
+                        <span className="absolute bg-blue-700 text-white px-3 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
+                          <a href="">Technology</a>
+                        </span>
+                      </figure>
+                      <a
+                        href=""
+                        className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
+                      >
+                        <h2>
+                          {post['title']}
+                        </h2>
+                      </a>
+                      <div className="flex space-x-4 font-xs text-gray-500">
+                        <a href="" className="hover:text-red-500 duration-500">
+                          {post['author']['node']['name']}
                         </a>
                         <span>{today}</span>
                         <a
@@ -265,7 +414,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                     data-toggle="tab"
                     href="#link1"
                     role="tablist"
-                  >Top News</li>
+                  >News</li>
                   <li
                     className={
                       "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
@@ -296,6 +445,36 @@ export default function Home({ posts, reviews, topstory, trending }) {
                     href="#link2"
                     role="tablist"
                   >Stories</li>
+                   <li
+                    className={
+                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      (openTab === 4
+                        ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
+                        : "text-gray-500 border-transparen")
+                    }
+                    onClick={e => {
+                      e.preventDefault();
+                      setOpenTab(4);
+                    }}
+                    data-toggle="tab"
+                    href="#link2"
+                    role="tablist"
+                  >Web 3</li>
+                   <li
+                    className={
+                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      (openTab === 5
+                        ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
+                        : "text-gray-500 border-transparen")
+                    }
+                    onClick={e => {
+                      e.preventDefault();
+                      setOpenTab(5);
+                    }}
+                    data-toggle="tab"
+                    href="#link2"
+                    role="tablist"
+                  >Tips</li>
                 </ul>
 
               </div>
@@ -329,7 +508,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           </a>
                           <a
                             href=""
-                            className=" pl-2 mx-2 my-2 text-gray-400 hover:text-red-500 duration-500"
+                            className=" pl-2 mx-2 my-2 text-gray-900  dark:text-gray-400 hover:text-red-500 duration-500"
                           >
                             Published on : {today}
                           </a>
@@ -339,6 +518,12 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   })}
 
                   {/**/}
+                  <Link href={`/allposts`}>
+                  <button type="button" class="text-gray-900 flex bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-6 py-2.5 text-center mr-2 mb-2"> view all News &nbsp;  
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">all posts</span>
+</button>
+                  </Link>
                 </div>
               </div>
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
@@ -370,7 +555,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           </a>
                           <a
                             href=""
-                            className=" pl-2 mx-2 my-2 text-gray-400 hover:text-red-500 duration-500"
+                            className=" pl-2 mx-2 my-2 text-gray-900 dark:text-gray-400 hover:text-red-500 duration-500"
                           >
                             Published on : {today}
                           </a>
@@ -378,8 +563,14 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       </div>
                     </Link>)
                   })}
-
+                  
                   {/**/}
+                  <Link href={`/allposts`}>
+                  <button type="button" className="text-gray-900 w-44  flex bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-6 py-2.5 text-center mr-2 mb-2"> view all reviews &nbsp;  
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">all posts</span>
+</button>
+                  </Link>
                 </div>
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link2">
@@ -411,7 +602,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           </a>
                           <a
                             href=""
-                            className=" pl-2 mx-2 my-2 text-gray-400 hover:text-red-500 duration-500"
+                            className=" pl-2 mx-2 my-2 text-gray-900 dark:text-gray-400 hover:text-red-500 duration-500"
                           >
                             Published on : {today}
                           </a>
@@ -421,6 +612,106 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   })}
 
                   {/**/}
+                  <Link href={`/allposts`}>
+                  <button type="button" className="text-gray-900 w-44  flex bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-6 py-2.5 text-center mr-2 mb-2"> view all story &nbsp;  
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">all posts</span>
+</button>
+                  </Link>
+                </div>
+              </div>
+              <div className={openTab === 4 ? "block" : "hidden"} id="link2">
+                <div className="flex flex-col divide-y divide-coolGray-700">
+                  {topstory.slice(1, 4).map((post, index) => {
+                    //console.log(post)
+                    var olddate = new Date(post['date']);
+                    var today = format(olddate, "MMMM do, yyyy");
+                    return (<Link key={index} href={`/blog${post['uri']}`}>
+                      <div className="flex px-1 py-4">
+                        <img
+                          alt=""
+                          className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
+                          src={post.featuredImage.node.sourceUrl}
+                          loading="lazy"
+                        />
+                        <div className="flex flex-col flex-grow">
+                          <a href="">
+                            <span className=" bg-blue-700 text-white px-4 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
+                              {post['categories']['nodes'][0]['name']}
+                            </span>
+                          </a>
+                          <a
+                            rel="noopener noreferrer"
+                            href="#"
+                            className="font-semibold my-2 text-xl hover:underline"
+                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                          >
+                          </a>
+                          <a
+                            href=""
+                            className=" pl-2 mx-2 my-2 text-gray-900 dark:text-gray-400 hover:text-red-500 duration-500"
+                          >
+                            Published on : {today}
+                          </a>
+                        </div>
+                      </div>
+                    </Link>)
+                  })}
+
+                  {/**/}
+                  <Link href={`/allposts`}>
+                  <button type="button" className="text-gray-900 w-44  flex bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-6 py-2.5 text-center mr-2 mb-2"> view all web 3 &nbsp;  
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">all posts</span>
+</button>
+                  </Link>
+                </div>
+              </div>
+              <div className={openTab === 5 ? "block" : "hidden"} id="link2">
+                <div className="flex flex-col divide-y divide-coolGray-700">
+                  {topstory.slice(1, 4).map((post, index) => {
+                    //console.log(post)
+                    var olddate = new Date(post['date']);
+                    var today = format(olddate, "MMMM do, yyyy");
+                    return (<Link key={index} href={`/blog${post['uri']}`}>
+                      <div className="flex px-1 py-4">
+                        <img
+                          alt=""
+                          className="flex-shrink-0 object-cover w-32 h-32 mr-4 dark:bg-coolGray-500"
+                          src={post.featuredImage.node.sourceUrl}
+                          loading="lazy"
+                        />
+                        <div className="flex flex-col flex-grow">
+                          <a href="">
+                            <span className=" bg-blue-700 text-white px-4 py-1 text-xs font-bold uppercase   top-6  dark:text-gray-100">
+                              {post['categories']['nodes'][0]['name']}
+                            </span>
+                          </a>
+                          <a
+                            rel="noopener noreferrer"
+                            href="#"
+                            className="font-semibold my-2 text-xl hover:underline"
+                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                          >
+                          </a>
+                          <a
+                            href=""
+                            className=" pl-2 mx-2 my-2 text-gray-900 dark:text-gray-400 hover:text-red-500 duration-500"
+                          >
+                            Published on : {today}
+                          </a>
+                        </div>
+                      </div>
+                    </Link>)
+                  })}
+
+                  {/**/}
+                  <Link href={`/allposts`}>
+                  <button type="button" className="text-gray-900 w-44  flex bg-gradient-to-r from-red-200 via-red-300 to-yellow-200 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-red-100 dark:focus:ring-red-400 font-medium rounded-lg text-sm px-6 py-2.5 text-center mr-2 mb-2"> view all tips &nbsp;  
+  <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"></path></svg>
+  <span class="sr-only">all posts</span>
+</button>
+                  </Link>
                 </div>
               </div>
             </div>
@@ -465,7 +756,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                     href=""
                     className=" pl-4 mx-2 text-gray-700 dark:text-gray-100   hover:text-red-500 duration-500"
                   >
-                    By Ashley Graham
+                    {post['author']['node']['name']}
                   </a>
                   <span className="text-gray-700 dark:text-gray-100 mx-2">{today}</span>
                   <a
@@ -534,7 +825,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                     href=""
                     className=" pl-4 mx-2 text-gray-700 dark:text-gray-100   hover:text-red-500 duration-500"
                   >
-                    By Ashley Graham
+                    {post['author']['node']['name']}
                   </a>
                   <span className="text-gray-700 dark:text-gray-100 mx-2">{today}</span>
                   <a
@@ -603,7 +894,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                     >
                     </h1>
                     <span className=" mx-2 py-3 relative lg:top-10 text-gray-900 dark:text-gray-100  hover:text-red-500 duration-500">
-                      By Ashley Graham
+                      {post['author']['node']['name']}
                     </span>
                   </a>
                 </div>
@@ -761,9 +1052,9 @@ export default function Home({ posts, reviews, topstory, trending }) {
 // }
 //   `;
 
-//   // Here we make a call with the client and pass in our query string to the 
+//   // Here we make a call with the client2 and pass in our query string to the 
 //   // configuration objects 'query' property
-//   const response = await client.query({
+//   const response = await client2.query({
 //     query: GET_POSTS
 //   });
 
@@ -781,8 +1072,8 @@ export default function Home({ posts, reviews, topstory, trending }) {
 //   }
 // }
  // getting data from graphql
-export async function getServerSideProps() {
-  const data = await client.query({
+export async function getStaticProps() {
+  const data = await client2.query({
     query: gql`
     query topnews {
       posts (where: {categoryId: 3}) {
@@ -803,13 +1094,18 @@ export async function getServerSideProps() {
             }
           }
           excerpt(format: RENDERED)
+          author {
+            node {
+              name
+            }
+          }
         }
       }
      
     }
     `,
   });
-  const data1 = await client.query({
+  const data1 = await client2.query({
     query: gql`
     query reviews {
       posts (where: {categoryId: 5}) {
@@ -830,13 +1126,18 @@ export async function getServerSideProps() {
             }
           }
           excerpt(format: RENDERED)
+          author {
+            node {
+              name
+            }
+          }
         }
       }
      
     }
     `,
   });
-  const data2 = await client.query({
+  const data2 = await client2.query({
     query: gql`
     query topstory {
       posts (where: {categoryId: 6}) {
@@ -857,13 +1158,18 @@ export async function getServerSideProps() {
             }
           }
           excerpt(format: RENDERED)
+          author {
+            node {
+              name
+            }
+          }
         }
       }
      
     }
     `,
   });
-  const data3 = await client.query({
+  const data3 = await client2.query({
     query: gql`
     query trending {
       posts (where: {categoryId: 9}) {
@@ -884,6 +1190,11 @@ export async function getServerSideProps() {
             }
           }
           excerpt(format: RENDERED)
+          author {
+            node {
+              name
+            }
+          }
         }
       }
      
@@ -894,8 +1205,7 @@ export async function getServerSideProps() {
   const reviews = data1?.data?.posts?.nodes;
   const topstory = data2?.data?.posts?.nodes;
   const trending = data3?.data?.posts?.nodes;
-
-
+  console.log(reviews);
 
 
   return {
