@@ -397,7 +397,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
             <div className=" pt-2  ">
               <div className="mx-4 ">
                 <ul
-                  className="flex space-x-20 mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
+                  className="flex space-x-12 lg:space-x-20 mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
                   role="tablist"
                 >
                   <li
@@ -1205,7 +1205,7 @@ export async function getStaticProps() {
   const reviews = data1?.data?.posts?.nodes;
   const topstory = data2?.data?.posts?.nodes;
   const trending = data3?.data?.posts?.nodes;
-  console.log(reviews);
+  
 
 
   return {
