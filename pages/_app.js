@@ -7,12 +7,11 @@ import NextNProgress from "nextjs-progressbar";
 import {useEffect, useState} from 'react'
 import { ApolloProvider } from "@apollo/client/react";
 import { client } from "../lib/apollo";
-import { gql } from "@apollo/client";
 
 
 export default function MyApp({ Component, pageProps }) {
 const [colorTheme, setTheme] = useDarkMode("dark");
-const [progress, setProgress] = useState(0)
+const [progress, setProgress] = useState(0);
 const [logo, setLogo] = useState("white-logo.svg");
 
 

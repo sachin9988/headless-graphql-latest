@@ -20,14 +20,26 @@ export default function Home({ posts, reviews, topstory, trending }) {
       <section className="px-2   sm:px-4 pt-20  dark:bg-gray-800  dark:text-gray-100 ">
         <div className="container dark:bg-gray-800">
           <div className="grid lg:grid-cols-2 mx-auto gap-y-6 md:gap-10">
+            
             <div className="box-border block" style={{ zIndex: 0 }}>
+              <div className="add-container mb-2">
+          <a href="">
+            <img
+              src={'/clientbanner.jpg'}
+              className="w-full h-auto"
+              alt="clientbanner" 
+			  height={90}
+			  width={728}
+            />
+          </a>
+        </div>
               <div className={openTab === 1 ? "block" : "hidden"} id="link1">
                 {posts.slice(0, 1).map((post, index) => {
                   
                   var olddate = new Date(post['date']);
                   var today = format(olddate, "MMMM do, yyyy");
                   return (<Link href={`/blog${post['uri']}`}>
-                    <div className="flex flex-col md:my-20">
+                    <div className="flex flex-col md:my-10">
                       <figure className=" relative   bg-center bg-no-repeat bg-cover dark:bg-coolGray-500  min-h-96">
                         <a href="" className="block">
                           <img
@@ -43,10 +55,10 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       </figure>
                       <a
                         href=""
-                        className="text-black px-3 py-1 text-sm md:text-xl font-semibold uppercase top-6  dark:text-gray-100 hover:underline"
+                        className="text-black px-3 py-1 text-lg md:text-xl font-semibold uppercase top-6  dark:text-gray-100 hover:underline"
                       >
                         <div>
-                          {post['title']}
+                          {post['title'].slice(0,80)+(' . . . ')}
                         </div>
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
@@ -121,7 +133,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                         className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
                       >
                         <h2>
-                          {post['title']}
+                          {post['title'].slice(0,80)+(' . . . ')}
                         </h2>
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
@@ -195,7 +207,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                         className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
                       >
                         <h2>
-                          {post['title']}
+                          {post['title'].slice(0,80)+(' . . . ')}
                         </h2>
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
@@ -269,7 +281,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                         className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
                       >
                         <h2>
-                          {post['title']}
+                          {post['title'].slice(0,80)+(' . . . ')}
                         </h2>
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
@@ -343,7 +355,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                         className="text-black px-3 py-1 text-2xl font-bold uppercase top-6  dark:text-gray-100 hover:underline"
                       >
                         <h2>
-                          {post['title']}
+                          {post['title'].slice(0,80)+(' . . . ')}
                         </h2>
                       </a>
                       <div className="flex space-x-4 font-xs text-gray-500">
@@ -397,12 +409,12 @@ export default function Home({ posts, reviews, topstory, trending }) {
             <div className=" pt-2  ">
               <div className="mx-4 ">
                 <ul
-                  className="flex space-x-6 lg:space-x-20 mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
+                  className="flex space-x-6 lg:space-x-16 mb-0 list-none flex-wrap pt-3 pb-4 flex-row"
                   role="tablist"
                 >
                   <li
                     className={
-                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      "pb-2 cursor-pointer text-sm font-bold uppercase  duration-150   block leading-normal " +
                       (openTab === 1
                         ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
                         : "text-gray-500 border-transparen")
@@ -417,7 +429,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   >News</li>
                   <li
                     className={
-                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      "pb-2 cursor-pointer text-sm font-bold uppercase  duration-150   block leading-normal " +
                       (openTab === 2
                         ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
                         : "text-gray-500 border-transparen")
@@ -432,7 +444,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   >Reviews</li>
                   <li
                     className={
-                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      "pb-2 cursor-pointer text-sm font-bold uppercase  duration-150   block leading-normal " +
                       (openTab === 3
                         ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
                         : "text-gray-500 border-transparen")
@@ -447,7 +459,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   >Stories</li>
                    <li
                     className={
-                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      "pb-2 cursor-pointer text-sm font-bold uppercase  duration-150   block leading-normal " +
                       (openTab === 4
                         ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
                         : "text-gray-500 border-transparen")
@@ -462,7 +474,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                   >Web 3</li>
                    <li
                     className={
-                      "pb-2 cursor-pointer text-xs font-bold uppercase  duration-150   block leading-normal " +
+                      "pb-2 cursor-pointer text-sm font-bold uppercase  duration-150   block leading-normal " +
                       (openTab === 5
                         ? "dark:text-white border-gray-900 dark:border-gray-100 border-b-2 "
                         : "text-gray-500 border-transparen")
@@ -480,7 +492,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
               </div>
               <div className="px-4 py-2 flex-auto">
                 <div className={openTab === 1 ? "block" : "hidden"} id="link1">
-                  {posts.slice(1, 4).map((post, index) => {
+                  {posts.slice(1, 5).map((post, index) => {
                     //console.log(post)
                     var olddate = new Date(post['date']);
                     var today = format(olddate, "MMMM do, yyyy");
@@ -502,8 +514,8 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           <a
                             rel="noopener noreferrer"
                             href="#"
-                            className="font-semibold my-2 text-sm md:text-xl hover:underline"
-                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                            className="font-semibold my-2 text-lg md:text-xl hover:underline"
+                            dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                           >
                           </a>
                           <a
@@ -528,7 +540,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
               </div>
               <div className={openTab === 2 ? "block" : "hidden"} id="link2">
                 <div className="flex flex-col divide-y divide-coolGray-700">
-                  {reviews.slice(1, 4).map((post, index) => {
+                  {reviews.slice(1, 5).map((post, index) => {
                     //console.log(post)
                     var olddate = new Date(post['date']);
                     var today = format(olddate, "MMMM do, yyyy");
@@ -550,7 +562,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                             rel="noopener noreferrer"
                             href="#"
                             className="font-semibold my-2 text-xl hover:underline"
-                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                            dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                           >
                           </a>
                           <a
@@ -575,7 +587,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
               </div>
               <div className={openTab === 3 ? "block" : "hidden"} id="link2">
                 <div className="flex flex-col divide-y divide-coolGray-700">
-                  {topstory.slice(1, 4).map((post, index) => {
+                  {topstory.slice(1, 5).map((post, index) => {
                     //console.log(post)
                     var olddate = new Date(post['date']);
                     var today = format(olddate, "MMMM do, yyyy");
@@ -597,7 +609,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                             rel="noopener noreferrer"
                             href="#"
                             className="font-semibold my-2 text-xl hover:underline"
-                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                            dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                           >
                           </a>
                           <a
@@ -622,7 +634,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
               </div>
               <div className={openTab === 4 ? "block" : "hidden"} id="link2">
                 <div className="flex flex-col divide-y divide-coolGray-700">
-                  {topstory.slice(1, 4).map((post, index) => {
+                  {topstory.slice(1, 5).map((post, index) => {
                     //console.log(post)
                     var olddate = new Date(post['date']);
                     var today = format(olddate, "MMMM do, yyyy");
@@ -644,7 +656,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                             rel="noopener noreferrer"
                             href="#"
                             className="font-semibold my-2 text-xl hover:underline"
-                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                            dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                           >
                           </a>
                           <a
@@ -669,7 +681,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
               </div>
               <div className={openTab === 5 ? "block" : "hidden"} id="link2">
                 <div className="flex flex-col divide-y divide-coolGray-700">
-                  {topstory.slice(1, 4).map((post, index) => {
+                  {topstory.slice(1, 5).map((post, index) => {
                     //console.log(post)
                     var olddate = new Date(post['date']);
                     var today = format(olddate, "MMMM do, yyyy");
@@ -691,7 +703,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                             rel="noopener noreferrer"
                             href="#"
                             className="font-semibold my-2 text-xl hover:underline"
-                            dangerouslySetInnerHTML={{ __html: post['title'] }}
+                            dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                           >
                           </a>
                           <a
@@ -751,7 +763,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
 		<div className="p-6 pb-6 m-4 mx-auto -mt-16 space-y-2 lg:max-w-2xl sm:px-10 sm:mx-12 lg:rounded-md bg-gray-100 dark:bg-gray-900 drop-shadow-md">
       
 			<div className="space-y-2">
-				<a rel="noopener noreferrer" href="#" className="inline-block text-2xl font-semibold text-gray-900 dark:text-gray-100 sm:text-2xl">{post['title']}</a>
+				<a rel="noopener noreferrer" href="#" className="inline-block text-2xl font-semibold text-gray-900 dark:text-gray-100 sm:text-2xl">{post['title'].slice(0,80)+(' . . . ')}</a>
 				<a
                     href=""
                     className=" pl-4 mx-2 text-gray-700 dark:text-gray-100   hover:text-red-500 duration-500"
@@ -815,7 +827,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       rel="noopener noreferrer"
                       href="#"
                       className="relative lg:top-36 pl-2 text-gray-900   text-3xl   font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
-                      dangerouslySetInnerHTML={{ __html: post['title'] }}
+                      dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                       >
                     </h1>
                     </div>
@@ -890,7 +902,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                       rel="noopener noreferrer"
                       href="#"
                       className="relative lg:top-12 text-gray-900 text-lg my-2  font-medium group-hover:underline underline-offset-8 dark:text-gray-100 hover:duration-700"
-                      dangerouslySetInnerHTML={{ __html: post['title'] }}
+                      dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                     >
                     </h1>
                     <span className=" mx-2 py-3 relative lg:top-10 text-gray-900 dark:text-gray-100  hover:text-red-500 duration-500">
@@ -942,7 +954,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           rel="noopener noreferrer"
                           href="#"
                           className="font-semibold my-2 text-xl hover:underline"
-                          dangerouslySetInnerHTML={{ __html: post['title'] }}
+                          dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                         >
 
                         </a>
@@ -983,7 +995,7 @@ export default function Home({ posts, reviews, topstory, trending }) {
                           rel="noopener noreferrer"
                           href="#"
                           className="font-semibold my-2 text-xl hover:underline"
-                          dangerouslySetInnerHTML={{ __html: post['title'] }}
+                          dangerouslySetInnerHTML={{ __html: post['title'].slice(0,80)+(' . . . ') }}
                         >
 
                         </a>
